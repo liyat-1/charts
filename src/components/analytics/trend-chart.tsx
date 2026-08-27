@@ -96,7 +96,8 @@ function shortRange(r: Range) {
   const wholeMonth =
     sameMonth &&
     day(r.start) === 1 &&
-    day(r.end) === new Date(Date.UTC(r.end.getUTCFullYear(), r.end.getUTCMonth() + 1, 0)).getUTCDate();
+    day(r.end) ===
+      new Date(Date.UTC(r.end.getUTCFullYear(), r.end.getUTCMonth() + 1, 0)).getUTCDate();
   if (wholeMonth) return r.start.toLocaleDateString("en-US", { month: "long", timeZone: "UTC" });
   if (day(r.start) === day(r.end) && sameMonth) return `${m(r.start)} ${day(r.start)}`;
   if (sameMonth) return `${m(r.start)} ${day(r.start)}–${day(r.end)}`;
@@ -291,7 +292,11 @@ export function TrendChart({
   const pct = cmpValue ? (delta / cmpValue) * 100 : 0;
 
   const fmtV = (v: number) =>
-    isPercent ? `${v.toFixed(1)}%` : basis === "avg" && compareOn ? v.toLocaleString("en-US") : fmt(v);
+    isPercent
+      ? `${v.toFixed(1)}%`
+      : basis === "avg" && compareOn
+        ? v.toLocaleString("en-US")
+        : fmt(v);
 
   // ---------- Interpretation ----------
   let verdict: { label: string; detail: string; tone: "up" | "down" | "flat" } = {
@@ -339,16 +344,15 @@ export function TrendChart({
   const comparisonMissing = compareOn && compareRows.length === 0;
 
   const title = compareOn ? `${metricName} by period` : `${metricName} over time`;
-  const subtitle = compareOn
-    ? `${baseShort} vs ${cmpShort}`
-    : card === "received"
+  const subtitle =
+    card === "received"
       ? metric === "total"
-        ? "OTA booking volume over time"
-        : "Guest information quality over time"
+        ? "OTA booking volume"
+        : "Guest information quality"
       : card === "added"
-        ? "Additional guest information created over time"
+        ? "Additional guest information created"
         : card === "improvement"
-          ? "How the usable information pool grows over time"
+          ? "Growth of the usable information pool"
           : "Share of guest profiles with the required fields";
 
   return (
@@ -357,15 +361,6 @@ export function TrendChart({
         <div className="min-w-0 space-y-1">
           <h3 className="text-base font-semibold tracking-tight">{title}</h3>
           <p className="text-xs text-muted-foreground">{subtitle}</p>
-          <p className="text-xs text-muted-foreground">
-            <span className="font-medium text-foreground">{rangeLabel(base)}</span>
-            {compareOn ? (
-              <>
-                {" vs "}
-                <span className="font-medium text-foreground">{rangeLabel(comp)}</span>
-              </>
-            ) : null}
-          </p>
         </div>
 
         <div className="flex flex-wrap items-center justify-end gap-2">
@@ -541,8 +536,8 @@ export function TrendChart({
 
       {comparisonMissing ? (
         <p className="rounded-lg bg-muted px-3 py-2 text-xs text-muted-foreground">
-          <span className="font-medium text-foreground">Comparison unavailable</span> — no historical
-          data is available for the selected comparison period.
+          <span className="font-medium text-foreground">Comparison unavailable</span> — no
+          historical data is available for the selected comparison period.
         </p>
       ) : null}
 
@@ -577,9 +572,6 @@ export function TrendChart({
                           fill={C.deep}
                         >
                           {row?.name}
-                        </text>
-                        <text textAnchor="middle" dy={30} style={{ fontSize: 10 }} fill={C.axis}>
-                          {row?.year}
                         </text>
                       </g>
                     );

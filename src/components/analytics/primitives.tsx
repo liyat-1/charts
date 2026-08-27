@@ -37,19 +37,14 @@ export function Delta({
   return (
     <span className={cn("inline-flex items-center gap-2 text-xs font-medium", className)}>
       <span
-        className={cn(
-          "inline-flex items-center gap-1",
-          up ? "text-positive" : "text-destructive",
-        )}
+        className={cn("inline-flex items-center gap-1", up ? "text-positive" : "text-destructive")}
       >
         <Icon className="size-3.5" />
         {up ? "+" : ""}
         {value.toFixed(1)}
         {unit === "pts" ? " pts" : "%"}
       </span>
-      {showMomentum ? (
-        <span className="text-current/50 font-normal">{momentum(value)}</span>
-      ) : null}
+      {showMomentum ? <span className="text-current/50 font-normal">{momentum(value)}</span> : null}
     </span>
   );
 }
@@ -161,7 +156,9 @@ export function BigNumber({
         <span className="text-[2.6rem] leading-none font-semibold tracking-tight tabular-nums">
           {value}
         </span>
-        {delta !== undefined ? <Delta value={delta} {...(deltaUnit ? { unit: deltaUnit } : {})} showMomentum /> : null}
+        {delta !== undefined ? (
+          <Delta value={delta} {...(deltaUnit ? { unit: deltaUnit } : {})} showMomentum />
+        ) : null}
       </div>
       {basisNote ? <p className="text-[0.7rem] text-current/45">{basisNote}</p> : null}
     </div>

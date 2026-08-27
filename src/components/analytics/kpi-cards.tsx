@@ -60,8 +60,7 @@ export function ReceivedCard({
   onSelect: () => void;
 }) {
   const v = useValue(cur, prev, basis);
-  const main =
-    view === "all" ? v("bookings") : view === "junk" ? v("junk") : v("valid");
+  const main = view === "all" ? v("bookings") : view === "junk" ? v("junk") : v("valid");
   const f = fields(main.value);
   const label =
     view === "all" ? "Bookings analyzed" : view === "junk" ? "Junk guest info" : "Valid guest info";
@@ -167,8 +166,10 @@ export function AddedCard({
   } as const;
   const cardDescription = {
     all: "Additional guest information added beyond the original OTA booking data.",
-    whois: "Guest information made usable through AI-powered cleanup and enrichment of junk information.",
-    journey: "Guest information provided through OTA Buster guest messaging and landing experiences.",
+    whois:
+      "Guest information made usable through AI-powered cleanup and enrichment of junk information.",
+    journey:
+      "Guest information provided through OTA Buster guest messaging and landing experiences.",
     hotel: "Guest information collected on property by your team.",
   }[source];
   const current = map[source];
@@ -400,7 +401,15 @@ export function CompletenessCard({
       <div className="flex flex-1 flex-wrap items-center gap-6">
         <div className="relative size-[148px] shrink-0">
           <svg viewBox="0 0 140 140" className="size-full -rotate-90">
-            <circle cx="70" cy="70" r={r} fill="none" stroke="currentColor" strokeWidth="16" className="text-white/10" />
+            <circle
+              cx="70"
+              cy="70"
+              r={r}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="16"
+              className="text-white/10"
+            />
             <circle
               cx="70"
               cy="70"

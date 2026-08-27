@@ -9,7 +9,6 @@ import {
 import {
   COMPARE_OPTIONS,
   PERIOD_OPTIONS,
-  rangeLabel,
   type CompareKey,
   type PeriodKey,
   type Range,
@@ -50,13 +49,7 @@ function DateRangeField({
   );
 }
 
-export function BasisToggle({
-  basis,
-  onChange,
-}: {
-  basis: Basis;
-  onChange: (b: Basis) => void;
-}) {
+export function BasisToggle({ basis, onChange }: { basis: Basis; onChange: (b: Basis) => void }) {
   return (
     <div className="inline-flex rounded-lg border border-border bg-card p-0.5">
       {(["avg", "total"] as Basis[]).map((b) => (
@@ -146,9 +139,6 @@ export function AnalyticsControls({
         </div>
 
         <div className="ml-auto flex items-center gap-3">
-          <span className="hidden text-xs text-muted-foreground md:inline">
-            {rangeLabel(base)} <span className="text-border">|</span> vs {rangeLabel(comp)}
-          </span>
           <BasisToggle basis={basis} onChange={onBasis} />
         </div>
       </div>

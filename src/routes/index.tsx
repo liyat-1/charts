@@ -140,8 +140,7 @@ function Dashboard() {
   const prev = useMemo(() => totalsOf(compRows), [compRows]);
 
   const unequal =
-    compareOn &&
-    daysBetween(base.start, base.end) !== daysBetween(comp.start, comp.end);
+    compareOn && daysBetween(base.start, base.end) !== daysBetween(comp.start, comp.end);
 
   return (
     <TooltipProvider delayDuration={150}>
