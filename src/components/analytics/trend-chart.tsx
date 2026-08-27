@@ -339,9 +339,8 @@ export function TrendChart({
   const comparisonMissing = compareOn && compareRows.length === 0;
 
   const title = compareOn ? `${metricName} by period` : `${metricName} over time`;
-  const subtitle = compareOn
-    ? `${baseShort} vs ${cmpShort} · ${yearLabel(base)}`
-    : card === "received"
+  const subtitle =
+    card === "received"
       ? metric === "total"
         ? "OTA booking volume over time"
         : "Guest information quality over time"
