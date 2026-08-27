@@ -146,9 +146,6 @@ export function AnalyticsControls({
         </div>
 
         <div className="ml-auto flex items-center gap-3">
-          <span className="hidden text-xs text-muted-foreground md:inline">
-            {rangeLabel(base)} <span className="text-border">|</span> vs {rangeLabel(comp)}
-          </span>
           <BasisToggle basis={basis} onChange={onBasis} />
         </div>
       </div>
