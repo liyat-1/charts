@@ -569,9 +569,6 @@ export function TrendChart({
                         >
                           {row?.name}
                         </text>
-                        <text textAnchor="middle" dy={30} style={{ fontSize: 10 }} fill={C.axis}>
-                          {row?.year}
-                        </text>
                       </g>
                     );
                   }}
