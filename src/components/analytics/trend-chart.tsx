@@ -342,12 +342,12 @@ export function TrendChart({
   const subtitle =
     card === "received"
       ? metric === "total"
-        ? "OTA booking volume over time"
-        : "Guest information quality over time"
+        ? "OTA booking volume"
+        : "Guest information quality"
       : card === "added"
-        ? "Additional guest information created over time"
+        ? "Additional guest information created"
         : card === "improvement"
-          ? "How the usable information pool grows over time"
+          ? "Growth of the usable information pool"
           : "Share of guest profiles with the required fields";
 
   return (
