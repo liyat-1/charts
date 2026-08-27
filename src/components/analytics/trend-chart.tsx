@@ -357,15 +357,6 @@ export function TrendChart({
         <div className="min-w-0 space-y-1">
           <h3 className="text-base font-semibold tracking-tight">{title}</h3>
           <p className="text-xs text-muted-foreground">{subtitle}</p>
-          <p className="text-xs text-muted-foreground">
-            <span className="font-medium text-foreground">{rangeLabel(base)}</span>
-            {compareOn ? (
-              <>
-                {" vs "}
-                <span className="font-medium text-foreground">{rangeLabel(comp)}</span>
-              </>
-            ) : null}
-          </p>
         </div>
 
         <div className="flex flex-wrap items-center justify-end gap-2">
