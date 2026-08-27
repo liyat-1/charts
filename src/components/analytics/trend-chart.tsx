@@ -340,7 +340,7 @@ export function TrendChart({
 
   const title = compareOn ? `${metricName} by period` : `${metricName} over time`;
   const subtitle = compareOn
-    ? `${rangeLabel(base)} vs ${rangeLabel(comp)}`
+    ? `${rangeLabel(base)} vs ${rangeLabel(comp)}`.replace(/, \d{2}/g, "")
     : card === "received"
       ? metric === "total"
         ? "OTA booking volume over time"
