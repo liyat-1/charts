@@ -231,10 +231,14 @@ function Dashboard() {
               comp={comp}
               granularity={granularity}
               onGranularity={setGranularity}
-              view={view}
+              metric={metric}
+              onMetric={setMetric}
               source={source}
+              onSource={setSource}
               field={field}
               onField={setField}
+              completenessMetric={completenessMetric}
+              onCompletenessMetric={setCompletenessMetric}
               basis={basis}
               onBasis={setBasis}
               unequal={unequal}
