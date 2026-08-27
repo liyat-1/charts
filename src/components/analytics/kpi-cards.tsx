@@ -268,14 +268,14 @@ export function ImprovementCard({
   const f = fields(improved.value);
 
   const stages = [
-    { key: "existing", label: "Existing valid info", value: existing.value, tip: TIPS.valid },
+    { key: "existing", label: "Existing valid", value: existing.value, tip: TIPS.valid },
     {
       key: "enrichment",
-      label: "Information enrichment",
+      label: "Enrichment",
       value: enrichment.value,
       tip: TIPS.enrichment,
     },
-    { key: "improved", label: "Improved valid info", value: improved.value, tip: TIPS.improved },
+    { key: "improved", label: "Improved valid", value: improved.value, tip: TIPS.improved },
   ];
 
   const max = Math.max(...stages.map((s) => s.value)) || 1;
