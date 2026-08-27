@@ -9,7 +9,7 @@ import {
 import {
   COMPARE_OPTIONS,
   PERIOD_OPTIONS,
-  rangeLabel,
+  
   type CompareKey,
   type PeriodKey,
   type Range,
