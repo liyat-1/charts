@@ -14,7 +14,9 @@ import {
 import {
   TrendChart,
   type ActiveCard,
+  type CompletenessMetric,
   type FieldKey,
+  type ReceivedMetric,
 } from "@/components/analytics/trend-chart";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import {
@@ -108,6 +110,14 @@ function Dashboard() {
   const [view, setView] = useState<ReceivedView>("all");
   const [source, setSource] = useState<AddedSource>("all");
   const [field, setField] = useState<FieldKey>("all");
+  const [metric, setMetric] = useState<ReceivedMetric>("total");
+  const [completenessMetric, setCompletenessMetric] = useState<CompletenessMetric>("all");
+
+  const handleView = (v: ReceivedView) => {
+    setView(v);
+    setMetric(v === "all" ? "total" : v);
+    setField("all");
+  };
   const [granularity, setGranularity] = useState<Granularity | "auto">("auto");
 
   const [analyzeRange, setAnalyzeRange] = useState<DateRangeState>(() => defaultCustom(0, 30));
@@ -184,7 +194,7 @@ function Dashboard() {
                 prev={prev}
                 basis={basis}
                 view={view}
-                onView={setView}
+                onView={handleView}
                 active={activeCard === "received"}
                 onSelect={() => setActiveCard("received")}
               />
@@ -221,10 +231,14 @@ function Dashboard() {
               comp={comp}
               granularity={granularity}
               onGranularity={setGranularity}
-              view={view}
+              metric={metric}
+              onMetric={setMetric}
               source={source}
+              onSource={setSource}
               field={field}
               onField={setField}
+              completenessMetric={completenessMetric}
+              onCompletenessMetric={setCompletenessMetric}
               basis={basis}
               onBasis={setBasis}
               unequal={unequal}
