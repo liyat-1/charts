@@ -14,7 +14,9 @@ import {
 import {
   TrendChart,
   type ActiveCard,
+  type CompletenessMetric,
   type FieldKey,
+  type ReceivedMetric,
 } from "@/components/analytics/trend-chart";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import {
