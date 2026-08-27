@@ -266,31 +266,40 @@ export function ImprovementCard({
   const existing = v("valid");
   const improved = v("improvedValid");
   const f = fields(improved.value);
-  const max = Math.max(enrichment.value, existing.value, improved.value) || 1;
 
   const stages = [
-    {
-      key: "existing",
-      label: "Existing valid info",
-      value: existing.value,
-      tip: TIPS.valid,
-      cls: "bg-brand-soft text-primary-foreground",
-    },
+    { key: "existing", label: "Existing valid", value: existing.value, tip: TIPS.valid },
     {
       key: "enrichment",
-      label: "Information enrichment",
+      label: "Enrichment",
       value: enrichment.value,
       tip: TIPS.enrichment,
-      cls: "bg-brand-softer text-brand-deep",
     },
-    {
-      key: "improved",
-      label: "Improved valid info",
-      value: improved.value,
-      tip: TIPS.improved,
-      cls: "bg-brand text-primary-foreground",
-    },
+    { key: "improved", label: "Improved valid", value: improved.value, tip: TIPS.improved },
   ];
+
+  const max = Math.max(...stages.map((s) => s.value)) || 1;
+  const W = 300;
+  const H = 120;
+  const SEG = W / stages.length;
+  const T = 26; // transition width
+  const heights = stages.map((s) => 26 + (s.value / max) * (H - 30));
+  const fills = ["var(--brand-softer)", "var(--brand-soft)", "var(--brand)"];
+
+  const pathFor = (i: number) => {
+    const x0 = i * SEG;
+    const x1 = x0 + SEG;
+    const y = H - (heights[i] ?? 0);
+    const yPrev = i === 0 ? y + 14 : H - (heights[i - 1] ?? 0);
+    return [
+      `M ${x0} ${H}`,
+      `L ${x0} ${yPrev}`,
+      `C ${x0 + T * 0.45} ${yPrev} ${x0 + T * 0.55} ${y} ${x0 + T} ${y}`,
+      `L ${x1} ${y}`,
+      `L ${x1} ${H}`,
+      "Z",
+    ].join(" ");
+  };
 
   return (
     <CardFrame active={active} onSelect={onSelect}>
@@ -300,51 +309,41 @@ export function ImprovementCard({
         tip={TIPS.improved}
       />
 
-      <div className="flex flex-col items-center gap-1.5 py-2">
-        {stages.map((s, i) => {
-          const width = 42 + Math.max(0.3, s.value / max) * 58;
-          return (
-            <div key={s.key} className="flex w-full flex-col items-center gap-1.5">
-              {i > 0 ? (
-                <span className="text-xs font-medium text-muted-foreground">
-                  {i === 1 ? "+" : "="}
-                </span>
-              ) : null}
-              <div
-                className={cn(
-                  "flex h-11 items-center justify-center gap-2 px-4 transition-all",
-                  s.cls,
-                  i === 2 && "shadow-[var(--shadow-card)]",
-                )}
-                style={{
-                  width: `${width}%`,
-                  clipPath: `polygon(${(i * 3).toFixed(1)}% 0, ${(100 - i * 3).toFixed(1)}% 0, 100% 100%, 0 100%)`,
-                  borderRadius: "0.5rem",
-                }}
-              >
-                <span
-                  className={cn(
-                    "font-semibold tabular-nums",
-                    i === 2 ? "text-xl" : i === 1 ? "text-base" : "text-sm",
-                  )}
-                >
-                  {i === 1 ? "+" : ""}
-                  {fmt(s.value)}
-                </span>
-                <span
-                  className={cn(
-                    "hidden items-center gap-1 text-[0.68rem] tracking-wide uppercase sm:flex",
-                    i === 1 ? "text-brand-deep/70" : "text-primary-foreground/70",
-                  )}
-                >
-                  {s.label}
-                  <InfoTip text={s.tip} />
-                </span>
+      <div className="flex flex-1 flex-col justify-end">
+        <div className="grid grid-cols-3">
+          {stages.map((s, i) => (
+            <div
+              key={s.key}
+              className={cn("space-y-1 pb-3", i > 0 && "border-l border-border pl-3")}
+            >
+              <div className="flex items-center gap-1 text-[0.68rem] tracking-wide text-muted-foreground uppercase">
+                <span className="truncate">{s.label}</span>
+                <InfoTip text={s.tip} />
               </div>
+              <p
+                className={cn(
+                  "font-semibold tabular-nums",
+                  i === 2 ? "text-2xl text-brand-deep" : "text-xl",
+                )}
+              >
+                {fmt(s.value)}
+              </p>
             </div>
-          );
-        })}
+          ))}
+        </div>
+
+        <svg
+          viewBox={`0 0 ${W} ${H}`}
+          preserveAspectRatio="none"
+          className="h-[132px] w-full"
+          role="presentation"
+        >
+          {stages.map((s, i) => (
+            <path key={s.key} d={pathFor(i)} fill={fills[i]} />
+          ))}
+        </svg>
       </div>
+
 
       <div className="mt-auto space-y-2 border-t border-border pt-4">
         <p className="text-[0.7rem] text-muted-foreground">
