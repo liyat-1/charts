@@ -194,7 +194,7 @@ function Dashboard() {
                 prev={prev}
                 basis={basis}
                 view={view}
-                onView={setView}
+                onView={handleView}
                 active={activeCard === "received"}
                 onSelect={() => setActiveCard("received")}
               />
