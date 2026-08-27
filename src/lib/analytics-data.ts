@@ -43,10 +43,10 @@ export function buildRow(date: Date): DayRow {
   const bookings = Math.round(380 + r1 * 180 + trend * 90);
   const junk = Math.round(bookings * (0.3 + r2 * 0.08));
   const valid = bookings - junk;
-  const whois = Math.round(junk * (0.42 + r3 * 0.12));
-  const journey = Math.round(bookings * (0.14 + r1 * 0.05));
-  const staff = Math.round(bookings * (0.07 + r2 * 0.03));
-  const idScan = Math.round(bookings * (0.05 + r3 * 0.03));
+  const whois = Math.round(junk * (0.62 + r3 * 0.16));
+  const journey = Math.round(bookings * (0.21 + r1 * 0.07));
+  const staff = Math.round(bookings * (0.1 + r2 * 0.045));
+  const idScan = Math.round(bookings * (0.07 + r3 * 0.045));
   const completeness = 68 + r2 * 6 + trend * 14;
   return { date: iso(date), bookings, junk, valid, whois, journey, staff, idScan, completeness };
 }
