@@ -110,6 +110,14 @@ function Dashboard() {
   const [view, setView] = useState<ReceivedView>("all");
   const [source, setSource] = useState<AddedSource>("all");
   const [field, setField] = useState<FieldKey>("all");
+  const [metric, setMetric] = useState<ReceivedMetric>("total");
+  const [completenessMetric, setCompletenessMetric] = useState<CompletenessMetric>("all");
+
+  const handleView = (v: ReceivedView) => {
+    setView(v);
+    setMetric(v === "all" ? "total" : v);
+    setField("all");
+  };
   const [granularity, setGranularity] = useState<Granularity | "auto">("auto");
 
   const [analyzeRange, setAnalyzeRange] = useState<DateRangeState>(() => defaultCustom(0, 30));
